@@ -1,44 +1,56 @@
-import tkinter as tk
-
-WIDTH = 600
-HEIGHT = 500
-
-root = tk.Tk()
-
-CANVAS = tk.Canvas(root, height=HEIGHT, width=WIDTH)
-
-frame = tk.Frame(root, bg="black")
-frame.place(relwidth = 1, relheight=1)
-
-CheckVar1 = tk.IntVar()
-CheckVar2 = tk.IntVar()
+from tkinter import *
+from tkinter import ttk
 
 
-C1 = tk.Checkbutton(root, selectcolor="black", bg="black", fg="white",
-text = "encrypt", variable = CheckVar1, onvalue = 1, offvalue = 0)
-C1.place(x = 0.25, y=.25)
+root = Tk()
+root.title("Ceasar Cipher example program")
 
 
-C2 = tk.Checkbutton(root, selectcolor="black", bg="black", fg="white",
-text = "decrypt", variable = CheckVar2, onvalue = 1, offvalue = 0)
-C2.place(x = 0.25, y=25)
-
-
-message = tk.Label(root, bg="black", fg="white", font=("Helvetica", 10), text="Enter your message")
-message.place(x = 100)
-
-message_box = tk.Entry(root, bg="black", fg="white",)
-message_box.place(x = 100, y = 25)
-
-
-key_message = tk.Label(root, bg="black", fg="white", font=("Helvetica", 12), text="key value: ")
-key_message.place(x = 1, y = 60)
-
-key_value = tk.Entry(root, bg="black", fg="white",)
-key_value.place(x = 100, y = 60, width = 28)
+########## Style settings ##########
+s = ttk.Style()
+s.theme_use("classic")
+s.configure('.', background="black", foreground="white")
 
 
 
 
+########## Frame inits ##########
+main_frame = ttk.LabelFrame(root, text="[Box box]")
+main_frame["padding"] = (5, 5)
+main_frame["borderwidth"] = 5
+main_frame["relief"] = "sunken"
+bubble_frame = ttk.Frame(main_frame)
+box_frame = ttk.Frame(main_frame)
+key_frame = ttk.LabelFrame(main_frame, text="[Your chosen key: RandomVar]")
+
+########## Variable inits ##########
+message = StringVar()
+mode = StringVar()
+key = StringVar()
+
+########## Widget inits ##########
+message_box = ttk.Entry(box_frame, width=30, textvariable=message)
+message_box.focus()
+encrypt = ttk.Radiobutton(bubble_frame, text='Encrypt', variable=mode, value='encrypt')
+decrypt = ttk.Radiobutton(bubble_frame, text='Decrypt', variable=mode, value='decrypt')
+key_slider = ttk.Scale(key_frame, orient=HORIZONTAL, length=330, from_=0.0, to=100.0)
+
+########## Grid Settings ##########
+root.grid_rowconfigure(0, weight=0)
+root.grid_columnconfigure(0, weight=0)
+bubble_frame.grid(column=0, row=0)
+box_frame.grid(column=1, row=0, ipady=6, sticky=S)
+message_box.grid(column=0, row=2, ipadx=5, sticky=S)
+encrypt.grid(column=0, row=0, sticky=W)
+decrypt.grid(column=0, row=1, sticky=W)
+main_frame.grid(column=0, row=0, sticky=(N, W, E, S))
+key_frame.grid(column=0, columnspan=3,row=4, sticky=S)
+key_slider.grid(column=0, columnspan=3,  pady=5, padx=5,  row=3)
+
+
+for child in main_frame.winfo_children():
+    child.grid_rowconfigure(0, weight=0)
+    child.grid_columnconfigure(0, weight=0)
+    child.grid_configure(padx=5, pady=5)
 
 root.mainloop()
