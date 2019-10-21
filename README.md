@@ -5,7 +5,7 @@ Gui is kind of jank, and does not have any built functions. Working on learning 
 
 10/15/2019: Updated the GUI. I think this is what I actually want it to look like.
 
-10/20/2019: 
+10/20/2019:  
 Minor changes to gui layout.  
 Added log frame and widget to show transcription of users message.  
 Added label to scale, and shows the value of the key according to scale position.  
