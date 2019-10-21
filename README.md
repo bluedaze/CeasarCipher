@@ -18,4 +18,4 @@ TODO:
 
 Map ceasarcipher.py functions to gui.  
 Create class structure for GUI.  
-Add brute for message to another tab within the program.  
+Add brute force message to another tab within the program.  
