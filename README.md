@@ -8,7 +8,7 @@ Gui is kind of jank, and does not have any built functions. Working on learning 
 10/20/2019:  
 Minor changes to gui layout.  
 Added log frame and widget to show transcription of users message.  
-Added label to scale, and shows the value of the key according to scale position.  
+Added label to scale, shows the value of the key according to scale position.  
 Created get_message() and get_scale functions().  
 get_message() shows value of users message to the shell.  
 get_scale() shows value of scale to the shell.  
