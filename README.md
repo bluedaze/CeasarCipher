@@ -3,10 +3,10 @@ Encrypt and decrypts a line of text using the ceasar cipher, also made a GUI for
 
 Gui is kind of jank, and does not have any built functions. Working on learning more about tkinter before working on it some more.
 
-10/15/2019: Updated the GUI. I think this is what I actually want it to look like. Will add brute force method in a second tab at a later date.
+10/15/2019: Updated the GUI. I think this is what I actually want it to look like.
 
 10/20/2019: 
-Changed gui layout.  
+Minor changes to gui layout.  
 Added log frame and widget to show transcription of users message.  
 Added label to scale, and shows the value of the key according to scale position.  
 Created get_message() and get_scale functions().  
