@@ -14,8 +14,11 @@ get_message() shows value of users message to the shell.
 get_scale() shows value of scale to the shell.  
 Created a bind for return key for get_message() function. 
 
+10/20/2019:
+Refactored code to use object oriented model. No other significant changes.
+
 TODO:
 
 Map ceasarcipher.py functions to gui.  
-Create class structure for GUI.  
+~~Create class structure for GUI.~~
 Add brute force message to another tab within the program.  
