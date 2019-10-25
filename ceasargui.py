@@ -1,85 +1,99 @@
+## I am using tkinter because it does not require user to download additional dependencies such as
+## flask, django, kwin, kivy, pyQT etc. It is more or less native to Python. Also, tkinter is
+## one of the few GUI frameworks available that is truly crossplatform. Many frames either work with
+## windows natively, or Linux natives. Rarely both. :(
+
 from tkinter import *
+import tkinter as tk
 from tkinter import ttk
 
-def get_message(*args):
-    value = message.get()
-    print(value)
-
-def get_scale(*args):
-    value = scale.get()
-    slider.set(value)
-    print(value)
-
-root = Tk()
-root.title("Ceasar Cipher example program")
-
-
-########## Variable inits ##########
-message = StringVar()
-mode = StringVar()
-key = StringVar()
-slider = StringVar()
-scale = IntVar()
-
-########## Style settings ##########
-s = ttk.Style()
-s.theme_use("classic")
-s.configure('.', background="black", foreground="white")
-message_style = ttk.Style()
-message_style.configure("My.TEntry", fieldbackground="black", background="black", foreground="white")
-
-########## Frame inits ##########
-main_frame = ttk.LabelFrame(root, text="[Box box]")
-main_frame["padding"] = (5, 5)
-bubble_frame = ttk.Frame(main_frame)
-box_frame = ttk.Frame(main_frame)
-key_frame = ttk.LabelFrame(main_frame, text="Choose a key: ")
-log_frame = ttk.LabelFrame(main_frame, text="Transcription: ")
 
 
 
-########## Widget inits ##########
-message_box = ttk.Entry(box_frame, width=40, textvariable=message)
-message_box.configure(style="My.TEntry")
+class Encoding(ttk.Frame):
+    def __init__(self, parent, *args, **kwargs):
+        ttk.Frame.__init__(self, parent, *args, **kwargs)
 
-encrypt = ttk.Radiobutton(bubble_frame, text='Encrypt', variable=mode, value='encrypt')
-decrypt = ttk.Radiobutton(bubble_frame, text='Decrypt', variable=mode, value='decrypt')
+        self.mode = StringVar()
+        self.encrypt = ttk.Radiobutton(self, text='Encrypt', variable=self.mode, value='encrypt')
+        self.decrypt = ttk.Radiobutton(self, text='Decrypt', variable=self.mode, value='decrypt')
 
-key_slider = ttk.Scale(key_frame, orient=HORIZONTAL, variable=scale, length=195, from_=0.0, to=40.0, command=get_scale)
-key_label = Label(key_frame, textvariable=slider, width=3)
+        self.encrypt.grid(column=0, row=0, ipadx=2, sticky=W)
+        self.decrypt.grid(column=0, row=1, ipadx=2, sticky=W)
 
-log = Text(log_frame, height=1, width=45, background="black", foreground="white", state='disabled')
+class Key_code(ttk.LabelFrame):
+    def __init__(self, parent, *args, **kwargs):
+        ttk.LabelFrame.__init__(self, parent, *args, **kwargs)
+        
+        self.configure(text="Choose a key: ")
+        
+        self.scale = IntVar()
+        self.slider = StringVar()
 
-########## Widget methods ##########
-message_box.insert(0, "Enter a message")
-
-########## Grid Settings ##########
-root.grid_rowconfigure(0, weight=0)
-root.grid_columnconfigure(0, weight=0)
-main_frame.grid(column=0, row=0, sticky=(N, W, E, S))
-
-
-bubble_frame.grid(column=0, row=0)
-encrypt.grid(column=0, row=0, ipadx=2, sticky=W)
-decrypt.grid(column=0, row=1, ipadx=2, sticky=W)
-
-key_frame.grid(column=1, row=0, sticky=S)
-key_slider.grid(column=2, pady=5, padx=5,  row=3)
-key_label.grid(column=1, padx=5,  row=3)
-
-box_frame.grid(column=0, columnspan=3, row=2, sticky=S)
-message_box.grid(column=0, ipadx=5, row=2, sticky=W)
-
-log_frame.grid(column=0, columnspan=3, row=3, sticky=S)
-log.grid(column=0, pady=5, padx=5,)
+        def get_scale(*args):
+            value = self.scale.get()
+            self.slider.set(value)
+            print(value)
+            
+        self.key_slider = ttk.Scale(self, orient=HORIZONTAL, variable=self.scale, length=195, from_=0.0, to=40.0, command=get_scale)
+        self.key_slider.grid(column=2, pady=5, padx=5,  row=0)
+        
+        self.key_label = tk.Label(self, textvariable=self.slider, width=2)
+        self.key_label.grid(column=1, padx=5,  row=0)
 
 
-for child in main_frame.winfo_children():
-    child.grid_rowconfigure(0, weight=0)
-    child.grid_columnconfigure(0, weight=0)
-    child.grid_configure(padx=5, pady=5)
+class Message(ttk.Frame):
+    def __init__(self, parent, *args, **kwargs):
+        tk.Frame.__init__(self, parent, *args, **kwargs)
+        message_style = ttk.Style()
+        message_style.configure("My.TEntry", fieldbackground="#020204", background="#020204", foreground="#00ff41")
+        
+        
+        self.message = StringVar()
+
+        def get_message(*args):
+            value = self.message.get()
+            print(value)
+            
+        root.bind('<Return>', get_message)
+        self.message_box = ttk.Entry(self, width=45, textvariable=self.message)
+        self.message_box.grid(column=0, ipadx=5, row=2, sticky=W)
+        self.message_box.configure(style="My.TEntry")
+
+class Transcription(ttk.Frame):
+    def __init__(self, parent, *args, **kwargs):
+        tk.Frame.__init__(self, parent, *args, **kwargs)
+
+        self.output = tk.Text(self, height=2, width=50, background="#020204", foreground="white", state='disabled')
+        self.output.grid(column=0, ipadx=10, row=2, sticky=W)
 
 
-message_box.focus()
-root.bind('<Return>', get_message)
-root.mainloop()
+class MainApplication(ttk.LabelFrame):
+    def __init__(self, parent, *args, **kwargs):
+        ttk.LabelFrame.__init__(self, parent, *args, **kwargs)
+        
+        self.s = ttk.Style()
+        self.s.theme_use("classic")
+        self.s.configure('.', background="#020204", foreground="#00ff41")
+
+        self.configure(text="Main Window")
+        self['borderwidth'] = 3
+        self['relief'] = 'raised'
+
+        self.encoding = Encoding(self)
+        self.encoding.grid(row=0, column=0)
+
+        self.message = Message(self)
+        self.message.grid(column=0, columnspan=2, row=1, sticky=S)
+
+        self.key_code = Key_code(self)
+        self.key_code.grid(row=0, column=1)
+
+        self.transcription = Transcription(self)
+        self.transcription.grid(column=0, columnspan=2, row=3)
+
+if __name__ == "__main__":
+    root = tk.Tk()
+    app = MainApplication(root)
+    app.pack(fill="both", expand=True)
+    root.mainloop()
