@@ -20,5 +20,5 @@ Refactored GUI code to use object oriented model. No other significant changes.
 TODO:
 
 Map ceasarcipher.py functions to gui.  
-~~Create class structure for GUI.~~
+~~Create class structure for GUI.~~  
 Add brute force message to another tab within the program.  
