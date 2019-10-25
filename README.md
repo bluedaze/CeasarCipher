@@ -14,7 +14,7 @@ get_message() shows value of users message to the shell.
 get_scale() shows value of scale to the shell.  
 Created a bind for return key for get_message() function. 
 
-10/20/2019:
+10/25/2019:
 Refactored GUI code to use object oriented model. No other significant changes.
 
 TODO:
