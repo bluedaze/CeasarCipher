@@ -6,6 +6,7 @@
 from tkinter import *
 import tkinter as tk
 from tkinter import ttk
+##import ceasarcipher as cc
 
 
 
@@ -13,14 +14,19 @@ from tkinter import ttk
 class Encoding(ttk.Frame):
     def __init__(self, parent, *args, **kwargs):
         ttk.Frame.__init__(self, parent, *args, **kwargs)
-
         self.mode = StringVar()
-        self.encrypt = ttk.Radiobutton(self, text='Encrypt', variable=self.mode, value='encrypt')
-        self.decrypt = ttk.Radiobutton(self, text='Decrypt', variable=self.mode, value='decrypt')
+        self.mode.set(1)
+
+        self.encrypt = ttk.Radiobutton(self, text='Encrypt', variable=self.mode, value='1', command=self.selected)
+        self.decrypt = ttk.Radiobutton(self, text='Decrypt', variable=self.mode, value='2', command=self.selected)
 
         self.encrypt.grid(column=0, row=0, ipadx=2, sticky=W)
         self.decrypt.grid(column=0, row=1, ipadx=2, sticky=W)
 
+    def selected(self, *args):
+        print(self.mode.get())
+
+        
 class Key_code(ttk.LabelFrame):
     def __init__(self, parent, *args, **kwargs):
         ttk.LabelFrame.__init__(self, parent, *args, **kwargs)
@@ -29,17 +35,16 @@ class Key_code(ttk.LabelFrame):
         
         self.scale = IntVar()
         self.slider = StringVar()
-
-        def get_scale(*args):
-            value = self.scale.get()
-            self.slider.set(value)
-            print(value)
             
-        self.key_slider = ttk.Scale(self, orient=HORIZONTAL, variable=self.scale, length=195, from_=0.0, to=40.0, command=get_scale)
+        self.key_slider = ttk.Scale(self, orient=HORIZONTAL, variable=self.scale, length=195, from_=0.0, to=40.0, command=self.get_scale)
         self.key_slider.grid(column=2, pady=5, padx=5,  row=0)
         
         self.key_label = tk.Label(self, textvariable=self.slider, width=2)
         self.key_label.grid(column=1, padx=5,  row=0)
+    def get_scale(self, *args):
+        value = self.scale.get()
+        self.slider.set(value)
+        print(value)
 
 
 class Message(ttk.Frame):
@@ -55,7 +60,7 @@ class Message(ttk.Frame):
             value = self.message.get()
             print(value)
             
-        root.bind('<Return>', get_message)
+##        root.bind('<Return>', get_message)
         self.message_box = ttk.Entry(self, width=45, textvariable=self.message)
         self.message_box.grid(column=0, ipadx=5, row=2, sticky=W)
         self.message_box.configure(style="My.TEntry")
