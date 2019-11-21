@@ -17,6 +17,7 @@ Refactored GUI code to use object oriented model. No other significant changes.
 
 11/20/2019:
 Refactored code.
+Created function which retreviews values from get_message(), get_selected(), and get_scale(), then uses the ceasar cipher method translate message.
 
 TODO:
 
