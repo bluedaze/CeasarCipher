@@ -20,7 +20,7 @@ Refactored code.
 
 TODO:
 
-~~Map ceasarcipher.py functions to gui.~~
-~~Create class structure for GUI.~~ 
-Create database of previous queries.  
-Add brute force message to another tab within the program.  
+~~Map ceasarcipher.py functions to gui.~~  
+~~Create class structure for GUI.~~   
+Create database of previous queries.    
+Add brute force message to another tab within the program.    
