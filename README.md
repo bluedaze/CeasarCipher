@@ -1,7 +1,5 @@
 # CeasarCipher
-Encrypt and decrypts a line of text using the ceasar cipher, also made a GUI for it. 
-
-Gui is kind of jank, and does not have any built functions. Working on learning more about tkinter before working on it some more.
+Program which encrypts and decrypts messages using the Ceasar Cipher. This project was something I used to teach myself the fundamentals of object oriented programming and tkinter.
 
 10/15/2019: Updated the GUI. I think this is what I actually want it to look like.
 
@@ -17,8 +15,12 @@ Created a bind for return key for get_message() function.
 10/25/2019:
 Refactored GUI code to use object oriented model. No other significant changes.
 
+11/20/2019:
+Refactored code.
+
 TODO:
 
-Map ceasarcipher.py functions to gui.  
-~~Create class structure for GUI.~~  
-Add brute force message to another tab within the program.  
+~~Map ceasarcipher.py functions to gui.~~
+~~Create class structure for GUI.~~ 
+Create database of previous queries.
+Add brute force message to another tab within the program.
