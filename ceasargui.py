@@ -6,7 +6,7 @@
 from tkinter import *
 import tkinter as tk
 from tkinter import ttk
-##import ceasarcipher as cc
+import ceasarcipher as cc
 
 
 
@@ -24,27 +24,32 @@ class Encoding(ttk.Frame):
         self.decrypt.grid(column=0, row=1, ipadx=2, sticky=W)
 
     def selected(self, *args):
-        print(self.mode.get())
+        mode = self.mode.get()
+        if mode == "1":
+            return "encrypt"
+        elif mode == "2":
+            return "decrypt"
 
-        
+
 class Key_code(ttk.LabelFrame):
     def __init__(self, parent, *args, **kwargs):
         ttk.LabelFrame.__init__(self, parent, *args, **kwargs)
-        
+
         self.configure(text="Choose a key: ")
-        
+
         self.scale = IntVar()
         self.slider = StringVar()
-            
+
         self.key_slider = ttk.Scale(self, orient=HORIZONTAL, variable=self.scale, length=195, from_=0.0, to=40.0, command=self.get_scale)
         self.key_slider.grid(column=2, pady=5, padx=5,  row=0)
-        
+
         self.key_label = tk.Label(self, textvariable=self.slider, width=2)
         self.key_label.grid(column=1, padx=5,  row=0)
+
     def get_scale(self, *args):
-        value = self.scale.get()
-        self.slider.set(value)
-        print(value)
+        key = self.scale.get()
+        self.slider.set(key)
+        return key
 
 
 class Message(ttk.Frame):
@@ -52,18 +57,20 @@ class Message(ttk.Frame):
         tk.Frame.__init__(self, parent, *args, **kwargs)
         message_style = ttk.Style()
         message_style.configure("My.TEntry", fieldbackground="#020204", background="#020204", foreground="#00ff41")
-        
-        
+
+
         self.message = StringVar()
 
-        def get_message(*args):
-            value = self.message.get()
-            print(value)
-            
-##        root.bind('<Return>', get_message)
+
+        #root.bind('<Return>', self.get_message)
         self.message_box = ttk.Entry(self, width=45, textvariable=self.message)
         self.message_box.grid(column=0, ipadx=5, row=2, sticky=W)
         self.message_box.configure(style="My.TEntry")
+
+
+    def get_message(self, *args):
+        message = self.message.get()
+        return message
 
 class Transcription(ttk.Frame):
     def __init__(self, parent, *args, **kwargs):
@@ -76,7 +83,7 @@ class Transcription(ttk.Frame):
 class MainApplication(ttk.LabelFrame):
     def __init__(self, parent, *args, **kwargs):
         ttk.LabelFrame.__init__(self, parent, *args, **kwargs)
-        
+
         self.s = ttk.Style()
         self.s.theme_use("classic")
         self.s.configure('.', background="#020204", foreground="#00ff41")
@@ -96,6 +103,15 @@ class MainApplication(ttk.LabelFrame):
 
         self.transcription = Transcription(self)
         self.transcription.grid(column=0, columnspan=2, row=3)
+
+        root.bind('<Return>', self.retrieve_values)
+
+    def retrieve_values(self, *args):
+        message = self.message.get_message()
+        mode = self.encoding.selected()
+        key = self.key_code.get_scale()
+        cc.ceasar_cipher(mode, message, key)
+
 
 if __name__ == "__main__":
     root = tk.Tk()
