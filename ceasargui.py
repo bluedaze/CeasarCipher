@@ -9,21 +9,19 @@ from tkinter import ttk
 import ceasarcipher as cc
 
 
-
-
 class Encoding(ttk.Frame):
     def __init__(self, parent, *args, **kwargs):
         ttk.Frame.__init__(self, parent, *args, **kwargs)
         self.mode = StringVar()
         self.mode.set(1)
 
-        self.encrypt = ttk.Radiobutton(self, text='Encrypt', variable=self.mode, value='1', command=self.selected)
-        self.decrypt = ttk.Radiobutton(self, text='Decrypt', variable=self.mode, value='2', command=self.selected)
+        self.encrypt = ttk.Radiobutton(self, text='Encrypt', variable=self.mode, value='1', command=self.get_selected)
+        self.decrypt = ttk.Radiobutton(self, text='Decrypt', variable=self.mode, value='2', command=self.get_selected)
 
         self.encrypt.grid(column=0, row=0, ipadx=2, sticky=W)
         self.decrypt.grid(column=0, row=1, ipadx=2, sticky=W)
 
-    def selected(self, *args):
+    def get_selected(self, *args):
         mode = self.mode.get()
         if mode == "1":
             return "encrypt"
@@ -76,8 +74,14 @@ class Transcription(ttk.Frame):
     def __init__(self, parent, *args, **kwargs):
         tk.Frame.__init__(self, parent, *args, **kwargs)
 
-        self.output = tk.Text(self, height=2, width=50, background="#020204", foreground="white", state='disabled')
+        self.output = tk.Text(self, height=2, width=50, background="#020204", foreground="white")
         self.output.grid(column=0, ipadx=10, row=2, sticky=W)
+
+    def output(self, abc, *args):
+        # uhhh, I dunno. This needs to exist otherwise the text widget doesn't work? But it literally has no reason to exist otherwise.
+        pass
+        #self.delete('1.0', END)
+        #self.insert("1.0", cc_transcription)
 
 
 class MainApplication(ttk.LabelFrame):
@@ -108,9 +112,11 @@ class MainApplication(ttk.LabelFrame):
 
     def retrieve_values(self, *args):
         message = self.message.get_message()
-        mode = self.encoding.selected()
+        mode = self.encoding.get_selected()
         key = self.key_code.get_scale()
-        cc.ceasar_cipher(mode, message, key)
+        cc_transcription = str(cc.ceasar_cipher(mode, message, key))
+        self.transcription.output.delete('1.0', END)
+        self.transcription.output.insert('1.0', cc_transcription)
 
 
 if __name__ == "__main__":

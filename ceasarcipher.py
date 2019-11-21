@@ -68,3 +68,7 @@ def ceasar_cipher(mode, message, key):
             translated = translated + symbol
 
     print(translated)
+    return translated
+
+if __name__ == "__main__":
+    main()
