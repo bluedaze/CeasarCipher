@@ -29,5 +29,5 @@ TODO:
 ~~Create class structure for GUI.~~   
 Create database of previous queries.    
 ~~Add brute force message~~
-Create another tab within the program for brute force method.
+Create another tab within the program for brute force method.  
 Refactor code to look better on Windows.  
