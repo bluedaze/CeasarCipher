@@ -19,9 +19,15 @@ Refactored GUI code to use object oriented model. No other significant changes.
 Refactored code.
 Created function which retreviews values from get_message(), get_selected(), and get_scale(), then uses the ceasar cipher method to translate message. Project is finished besides needing a database.
 
+12/09/2019:
+Added brute force method, nothing connected to gui yet.  
+Discovered that GUI looks weird as heck in Windows.  
+
 TODO:
 
 ~~Map ceasarcipher.py functions to gui.~~  
 ~~Create class structure for GUI.~~   
 Create database of previous queries.    
-Add brute force message to another tab within the program.    
+~~Add brute force message~~
+Create another tab within the program for brute force method.
+Refactor code to look better on Windows.  
