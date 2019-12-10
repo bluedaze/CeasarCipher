@@ -60,7 +60,7 @@ class Message(ttk.Frame):
         self.message = StringVar()
 
 
-        #root.bind('<Return>', self.get_message)
+
         self.message_box = ttk.Entry(self, width=45, textvariable=self.message)
         self.message_box.grid(column=0, ipadx=5, row=2, sticky=W)
         self.message_box.configure(style="My.TEntry")
@@ -80,8 +80,6 @@ class Transcription(ttk.Frame):
     def output(self, abc, *args):
         # uhhh, I dunno. This needs to exist otherwise the text widget doesn't work? But it literally has no reason to exist otherwise.
         pass
-        #self.delete('1.0', END)
-        #self.insert("1.0", cc_transcription)
 
 
 class MainApplication(ttk.LabelFrame):
